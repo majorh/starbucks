@@ -6,306 +6,379 @@
 <title>Zero Sugar Starbucks</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:#0d1a12;--surface:#132019;--card:#1a2d21;--card-hover:#1f3427;
-    --green:#00a862;--green-light:#00c975;--green-glow:rgba(0,168,98,.15);
-    --cream:#f5f0e8;--muted:#8aab96;--border:rgba(0,168,98,.2);--tag-bg:rgba(0,168,98,.12);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;min-height:100vh;padding-bottom:100px}
-  .header{background:linear-gradient(180deg,#0a1510 0%,var(--bg) 100%);padding:48px 20px 28px;text-align:center;position:relative;overflow:hidden}
-  .header::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:300px;height:300px;background:radial-gradient(circle,rgba(0,168,98,.18) 0%,transparent 70%);pointer-events:none}
-  .logo-ring{width:60px;height:60px;border:2px solid var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:26px;box-shadow:0 0 20px var(--green-glow),inset 0 0 20px var(--green-glow)}
-  .header h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;letter-spacing:-.5px;line-height:1.2}
-  .header h1 span{color:var(--green-light)}
-  .header p{color:var(--muted);font-size:12px;margin-top:8px;font-weight:300;line-height:1.5}
-  .milk-banner{margin:16px 16px 0;background:rgba(255,180,0,.08);border:1px solid rgba(255,180,0,.25);border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start}
-  .milk-banner .mi{font-size:18px;flex-shrink:0;margin-top:1px}
-  .milk-banner-text{font-size:11.5px;line-height:1.6;color:var(--cream)}
-  .milk-banner-text strong{color:#ffc94d}
-  .search-wrap{padding:12px 16px;position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid rgba(0,168,98,.08)}
-  .search-box{position:relative}
-  .search-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 16px 12px 42px;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
-  .search-input:focus{border-color:var(--green)}
-  .search-input::placeholder{color:var(--muted)}
-  .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
-  .tabs-wrap{overflow-x:auto;padding:12px 16px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .tabs-wrap::-webkit-scrollbar{display:none}
-  .tabs{display:flex;gap:8px;width:max-content}
-  .tab{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .2s;user-select:none}
-  .tab.active{background:var(--green);border-color:var(--green);color:#000;font-weight:600}
-  .content{padding:16px 16px 0}
-  .cat-section{margin-bottom:28px}
-  .cat-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-  .cat-icon{width:34px;height:34px;background:var(--tag-bg);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px}
-  .cat-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:600}
-  .cat-count{margin-left:auto;font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2px 8px}
-  .drink-card{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:10px;overflow:hidden}
-  .card-header{display:flex;align-items:stretch;cursor:pointer}
-  .card-photo-wrap{width:88px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:34px;background:linear-gradient(135deg,#0d1a12,#1a2d21);border-right:1px solid var(--border);min-height:88px}
-  .card-info{flex:1;padding:11px 4px 11px 13px;min-width:0}
-  .drink-name{font-weight:600;font-size:14px;color:var(--cream);line-height:1.3;margin-bottom:3px}
-  .drink-name.mod{color:var(--green-light)}
-  .drink-desc{font-size:11px;color:var(--muted);line-height:1.45;margin-bottom:5px}
-  .tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px}
-  .tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:10px;letter-spacing:.3px}
-  .tag-z{background:rgba(0,168,98,.15);color:var(--green-light);border:1px solid rgba(0,168,98,.3)}
-  .tag-m{background:rgba(255,180,0,.1);color:#ffc94d;border:1px solid rgba(255,180,0,.25)}
-  .tag-h{background:rgba(255,100,50,.1);color:#ff8c6b;border:1px solid rgba(255,100,50,.2)}
-  .tag-c{background:rgba(50,150,255,.1);color:#7ab8ff;border:1px solid rgba(50,150,255,.2)}
-  .tag-cf{background:rgba(180,130,255,.1);color:#c9a8ff;border:1px solid rgba(180,130,255,.2)}
-  .sugar-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:2px 7px;border-radius:10px}
-  .sb-0{background:rgba(0,168,98,.12);color:var(--green-light);border:1px solid rgba(0,168,98,.25)}
-  .sb-low{background:rgba(255,180,0,.08);color:#ffc94d;border:1px solid rgba(255,180,0,.2)}
-  .chevron{color:var(--muted);font-size:11px;transition:transform .2s;padding:14px 12px 14px 4px;flex-shrink:0;align-self:flex-start}
-  .drink-card.expanded .chevron{transform:rotate(180deg)}
-  .card-details{display:none;padding:0 14px 14px;border-top:1px solid var(--border);animation:fi .2s ease}
-  .drink-card.expanded .card-details{display:block}
-  @keyframes fi{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-  .dl{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--green);margin:12px 0 5px}
-  .db{font-size:13px;color:var(--cream);line-height:1.6;background:var(--surface);border-radius:10px;padding:10px 12px;border:1px solid var(--border)}
-  .db strong{color:var(--green-light);font-weight:500}
-  .note-box{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.5;padding:8px 10px;background:rgba(255,180,0,.05);border-left:2px solid rgba(255,180,0,.3);border-radius:0 6px 6px 0}
-  .milk-rec{font-size:11.5px;margin-top:10px;padding:9px 11px;background:rgba(0,168,98,.07);border:1px solid rgba(0,168,98,.2);border-radius:8px;line-height:1.5}
-  .milk-rec strong{color:var(--green-light)}
-  .order-buttons{display:flex;gap:8px;margin-top:12px}
-  .btn-order{flex:1;background:var(--green);color:#000;border:none;border-radius:10px;padding:10px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;text-decoration:none}
-  .btn-order:active{transform:scale(.97);background:var(--green-light)}
-  .btn-icon{background:var(--surface);color:var(--cream);border:1px solid var(--border);border-radius:10px;padding:10px 13px;font-size:16px;cursor:pointer;transition:all .15s}
-  .btn-icon:active{background:var(--card-hover)}
-  .btn-icon.copied{color:var(--green-light);border-color:var(--green)}
-  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;display:none;align-items:flex-end;justify-content:center}
-  .modal-overlay.open{display:flex}
-  .modal{background:#132019;border-top:1px solid var(--border);border-radius:20px 20px 0 0;padding:24px 20px;width:100%;max-width:480px;max-height:80vh;overflow-y:auto}
-  .modal-handle{width:36px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin:0 auto 20px}
-  .modal-title{font-family:'Playfair Display',serif;font-size:19px;margin-bottom:5px}
-  .modal-sub{font-size:13px;color:var(--muted);margin-bottom:18px}
-  .share-preview{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:18px}
-  .sp-name{font-weight:600;font-size:15px;color:var(--green-light);margin-bottom:5px}
-  .sp-desc{font-size:11.5px;color:var(--muted);margin-bottom:8px;line-height:1.4}
-  .sp-order{font-size:12px;color:var(--cream);background:var(--surface);padding:8px 10px;border-radius:8px;border:1px solid var(--border);line-height:1.5}
-  .share-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .share-btn{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 12px;cursor:pointer;text-align:center;transition:all .15s}
-  .share-btn:active{background:var(--card-hover);border-color:var(--green)}
-  .share-btn .si{font-size:24px;margin-bottom:6px}
-  .share-btn .sl{font-size:12px;font-weight:600;color:var(--cream)}
-  .share-btn .ss{font-size:10px;color:var(--muted);margin-top:2px}
-  .modal-cancel{width:100%;background:transparent;border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;margin-top:12px}
-  .empty-state{text-align:center;padding:48px 20px;color:var(--muted);display:none}
-  .empty-state.visible{display:block}
-  .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(13,26,18,.96);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-  .bbt{font-size:11px;color:var(--muted);line-height:1.4}
-  .btn-app{background:var(--green);color:#000;border:none;border-radius:10px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
-  .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;padding:9px 18px;border-radius:20px;font-weight:600;font-size:13px;z-index:2000;pointer-events:none;opacity:0;transition:opacity .3s}
-  .toast.show{opacity:1}
+:root {
+  --bg:#0d1a12;--surface:#132019;--card:#1a2d21;--card-hover:#1e3226;
+  --green:#00a862;--green-light:#00c975;--green-glow:rgba(0,168,98,.15);
+  --cream:#f5f0e8;--muted:#7a9e87;--border:rgba(0,168,98,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif}
+
+/* ── SCREENS ── */
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg);transition:transform .32s cubic-bezier(.4,0,.2,1);will-change:transform;overflow:hidden}
+#listScreen{transform:translateX(0)}
+#detailScreen{transform:translateX(100%)}
+#detailScreen.open{transform:translateX(0)}
+#shareScreen{transform:translateX(100%)}
+#shareScreen.open{transform:translateX(0)}
+
+/* ── LIST SCREEN ── */
+.list-header{padding:44px 20px 20px;background:linear-gradient(180deg,#0a1510 0%,var(--bg) 100%);text-align:center;flex-shrink:0;position:relative}
+.list-header::after{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(0,168,98,.14) 0%,transparent 65%);pointer-events:none}
+.logo-ring{width:52px;height:52px;border:1.5px solid var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px;box-shadow:0 0 18px var(--green-glow)}
+.list-header h1{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;line-height:1.2}
+.list-header h1 em{color:var(--green-light);font-style:normal}
+.list-header p{color:var(--muted);font-size:11.5px;margin-top:6px}
+
+.search-bar{flex-shrink:0;padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--border)}
+.search-inner{position:relative}
+.search-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 14px 10px 38px;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;outline:none}
+.search-input::placeholder{color:var(--muted)}
+.search-input:focus{border-color:var(--green)}
+.s-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:15px;pointer-events:none}
+
+.tabs-row{flex-shrink:0;overflow-x:auto;padding:10px 16px;scrollbar-width:none;border-bottom:1px solid var(--border)}
+.tabs-row::-webkit-scrollbar{display:none}
+.tabs-inner{display:flex;gap:7px;width:max-content}
+.tab{background:transparent;border:1px solid var(--border);border-radius:20px;padding:5px 13px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .18s;user-select:none;font-family:'DM Sans',sans-serif}
+.tab.on{background:var(--green);border-color:var(--green);color:#000;font-weight:600}
+
+.list-scroll{flex:1;overflow-y:auto;padding:12px 16px 80px;-webkit-overflow-scrolling:touch}
+.list-scroll::-webkit-scrollbar{display:none}
+
+.cat-label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);padding:16px 0 8px}
+.cat-label:first-child{padding-top:4px}
+
+/* ── DRINK ROW ── */
+.drink-row{display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:8px;cursor:pointer;transition:background .15s}
+.drink-row:active{background:var(--card-hover)}
+.row-emoji{font-size:28px;width:42px;text-align:center;flex-shrink:0}
+.row-body{flex:1;min-width:0}
+.row-name{font-size:14px;font-weight:600;color:var(--cream);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row-name.mod{color:var(--green-light)}
+.row-tags{display:flex;gap:4px;flex-wrap:nowrap;overflow:hidden}
+.tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.tz{background:rgba(0,168,98,.15);color:var(--green-light);border:1px solid rgba(0,168,98,.28)}
+.tm{background:rgba(255,180,0,.1);color:#ffc94d;border:1px solid rgba(255,180,0,.22)}
+.th{background:rgba(255,100,50,.1);color:#ff8c6b;border:1px solid rgba(255,100,50,.18)}
+.tc{background:rgba(50,150,255,.1);color:#7ab8ff;border:1px solid rgba(50,150,255,.18)}
+.tf{background:rgba(180,130,255,.1);color:#c9a8ff;border:1px solid rgba(180,130,255,.18)}
+.row-arrow{color:var(--muted);font-size:12px;flex-shrink:0}
+.sugar-pill{font-size:10px;padding:2px 7px;border-radius:8px;white-space:nowrap;margin-top:4px;display:inline-block}
+.sp0{background:rgba(0,168,98,.12);color:var(--green-light);border:1px solid rgba(0,168,98,.22)}
+.splow{background:rgba(255,180,0,.08);color:#ffc94d;border:1px solid rgba(255,180,0,.18)}
+
+.empty{text-align:center;padding:48px 20px;color:var(--muted);display:none}
+.empty.on{display:block}
+
+/* ── BOTTOM BAR ── */
+.bottom-bar{position:absolute;bottom:0;left:0;right:0;background:rgba(13,26,18,.95);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;z-index:10}
+.bbt{font-size:11px;color:var(--muted);line-height:1.4}
+.btn-app{background:var(--green);color:#000;border:none;border-radius:10px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+
+/* ── DETAIL SCREEN ── */
+.detail-nav{display:flex;align-items:center;gap:12px;padding:52px 16px 16px;flex-shrink:0}
+.back-btn{display:flex;align-items:center;gap:6px;color:var(--green);font-size:14px;font-weight:600;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0}
+.back-btn span{font-size:18px;line-height:1}
+
+.detail-scroll{flex:1;overflow-y:auto;padding:0 20px 100px;-webkit-overflow-scrolling:touch}
+.detail-scroll::-webkit-scrollbar{display:none}
+
+.detail-hero{text-align:center;padding:20px 0 28px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.detail-emoji{font-size:64px;margin-bottom:16px;display:block}
+.detail-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.2;margin-bottom:10px}
+.detail-name.mod{color:var(--green-light)}
+.detail-tags{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.detail-sugar{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:4px 12px;border-radius:20px}
+.detail-desc{font-size:14px;color:var(--muted);line-height:1.65;margin-top:14px;text-align:left}
+
+.section-label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.info-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:13px;line-height:1.65;color:var(--cream);margin-bottom:20px}
+.info-box strong{color:var(--green-light);font-weight:500}
+.warn-box{background:rgba(255,180,0,.06);border-left:2px solid rgba(255,180,0,.4);border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:20px}
+.milk-box{background:rgba(0,168,98,.07);border:1px solid rgba(0,168,98,.2);border-radius:12px;padding:12px 14px;font-size:12.5px;line-height:1.6;color:var(--cream);margin-bottom:20px}
+.milk-box strong{color:var(--green-light)}
+
+.detail-actions{display:flex;gap:10px;margin-top:4px}
+.btn-primary{flex:1;background:var(--green);color:#000;border:none;border-radius:12px;padding:14px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
+.btn-primary:active{opacity:.85}
+.btn-secondary{flex:0 0 auto;background:var(--surface);color:var(--cream);border:1px solid var(--border);border-radius:12px;padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:18px;cursor:pointer}
+.btn-secondary:active{background:var(--card-hover)}
+
+/* ── SHARE SCREEN ── */
+.share-nav{display:flex;align-items:center;padding:52px 16px 16px;flex-shrink:0}
+.share-scroll{flex:1;overflow-y:auto;padding:0 20px 40px}
+.share-scroll::-webkit-scrollbar{display:none}
+.share-title{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:4px}
+.share-sub{font-size:13px;color:var(--muted);margin-bottom:22px}
+.share-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:22px}
+.sc-name{font-weight:700;font-size:16px;color:var(--green-light);margin-bottom:5px}
+.sc-desc{font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.45}
+.sc-order{font-size:12px;color:var(--cream);background:var(--surface);padding:10px 12px;border-radius:8px;border:1px solid var(--border);line-height:1.55}
+.share-options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.share-opt{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 12px;cursor:pointer;text-align:center;transition:all .15s;font-family:'DM Sans',sans-serif}
+.share-opt:active{background:var(--card-hover);border-color:var(--green)}
+.so-icon{font-size:26px;margin-bottom:7px}
+.so-label{font-size:12px;font-weight:600;color:var(--cream)}
+.so-sub{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;padding:9px 18px;border-radius:20px;font-weight:600;font-size:13px;z-index:9999;pointer-events:none;opacity:0;transition:opacity .25s;white-space:nowrap}
+.toast.on{opacity:1}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="logo-ring">☕</div>
-  <h1>Zero Sugar<br><span>Starbucks Guide</span></h1>
-  <p>Cross-referenced with the 2025/2026 national menu<br>No added sugars · Lowest-sugar milk options</p>
-</div>
-
-<div class="milk-banner">
-  <div class="mi">⚠️</div>
-  <div class="milk-banner-text">
-    <strong>Reality check: Starbucks has no truly unsweetened milk.</strong> All plant-based milks contain added sugar. <strong>Almond milk (~5g/cup)</strong> is the lowest. <strong>Heavy cream (~1g/splash)</strong> is best for near-zero. Each drink shows you the sugar from the milk used.
+<!-- ════ LIST SCREEN ════ -->
+<div class="screen" id="listScreen">
+  <div class="list-header">
+    <div class="logo-ring">☕</div>
+    <h1>Zero Sugar<br><em>Starbucks Guide</em></h1>
+    <p>2025/2026 national menu · No added sugars</p>
   </div>
-</div>
 
-<div class="search-wrap">
-  <div class="search-box">
-    <span class="search-icon">🔍</span>
-    <input class="search-input" type="text" placeholder="Search drinks..." id="searchInput" oninput="filterDrinks(this.value)">
-  </div>
-</div>
-
-<div class="tabs-wrap">
-  <div class="tabs">
-    <div class="tab active" onclick="filterCat('all',this)">All</div>
-    <div class="tab" onclick="filterCat('hc',this)">☕ Hot Coffee</div>
-    <div class="tab" onclick="filterCat('ic',this)">🧊 Iced Coffee</div>
-    <div class="tab" onclick="filterCat('cb',this)">🌬️ Cold Brew</div>
-    <div class="tab" onclick="filterCat('ht',this)">🍵 Hot Tea</div>
-    <div class="tab" onclick="filterCat('it',this)">🧊 Iced Tea</div>
-    <div class="tab" onclick="filterCat('tl',this)">🫖 Tea Lattes</div>
-  </div>
-</div>
-
-<div class="content" id="mainContent"></div>
-<div class="empty-state" id="emptyState"><div style="font-size:40px;margin-bottom:12px">🌿</div><p>No drinks found.</p></div>
-
-<div class="bottom-bar">
-  <div class="bbt"><strong style="color:var(--cream)">Ready to order?</strong><br>Open the Starbucks app</div>
-  <a class="btn-app" href="#" onclick="openSbux();return false;">Open App ↗</a>
-</div>
-
-<!-- Share Modal -->
-<div class="modal-overlay" id="shareModal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Share this drink</div>
-    <div class="modal-sub">Send the order to a friend</div>
-    <div class="share-preview" id="sharePreview"></div>
-    <div class="share-grid">
-      <div class="share-btn" onclick="doShare('copy')"><div class="si">📋</div><div class="sl">Copy Text</div><div class="ss">Paste anywhere</div></div>
-      <div class="share-btn" onclick="doShare('native')"><div class="si">📤</div><div class="sl">Share Sheet</div><div class="ss">Messages, Mail…</div></div>
-      <div class="share-btn" onclick="doShare('sms')"><div class="si">💬</div><div class="sl">Text Message</div><div class="ss">Open in Messages</div></div>
-      <div class="share-btn" onclick="doShare('email')"><div class="si">✉️</div><div class="sl">Email</div><div class="ss">Open in Mail</div></div>
+  <div class="search-bar">
+    <div class="search-inner">
+      <span class="s-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="Search drinks…" id="searchInput" oninput="doSearch(this.value)">
     </div>
-    <button class="modal-cancel" onclick="document.getElementById('shareModal').classList.remove('open')">Cancel</button>
+  </div>
+
+  <div class="tabs-row">
+    <div class="tabs-inner" id="tabsInner">
+      <div class="tab on" onclick="setTab('all',this)">All</div>
+      <div class="tab" onclick="setTab('hc',this)">☕ Hot Coffee</div>
+      <div class="tab" onclick="setTab('ic',this)">🧊 Iced Coffee</div>
+      <div class="tab" onclick="setTab('cb',this)">🌬️ Cold Brew</div>
+      <div class="tab" onclick="setTab('ht',this)">🍵 Hot Tea</div>
+      <div class="tab" onclick="setTab('it',this)">🧊 Iced Tea</div>
+      <div class="tab" onclick="setTab('tl',this)">🫖 Tea Lattes</div>
+    </div>
+  </div>
+
+  <div class="list-scroll" id="listScroll">
+    <!-- rendered by JS -->
+    <div class="empty" id="emptyState">
+      <div style="font-size:36px;margin-bottom:10px">🌿</div>
+      <p>No drinks found</p>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="bbt"><strong style="color:var(--cream)">Ready to order?</strong><br>Open the Starbucks app</div>
+    <button class="btn-app" onclick="openSbux()">Open App ↗</button>
   </div>
 </div>
+
+<!-- ════ DETAIL SCREEN ════ -->
+<div class="screen" id="detailScreen">
+  <div class="detail-nav">
+    <button class="back-btn" onclick="goBack('detailScreen')"><span>‹</span> All Drinks</button>
+  </div>
+  <div class="detail-scroll" id="detailScroll">
+    <!-- filled dynamically -->
+  </div>
+</div>
+
+<!-- ════ SHARE SCREEN ════ -->
+<div class="screen" id="shareScreen">
+  <div class="share-nav">
+    <button class="back-btn" onclick="goBack('shareScreen')"><span>‹</span> Back</button>
+  </div>
+  <div class="share-scroll" id="shareScroll">
+    <!-- filled dynamically -->
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
 const DATA = [
-  { cat:'hc', catName:'Hot Coffees', catIcon:'☕',
-    drinks:[
-      { name:'Pike Place / Drip Coffee', e:'☕', desc:'Starbucks\' signature medium roast, brewed fresh every 30 minutes. Bold, smooth, and completely clean.', tags:['z','h'], ms:'0g sugar (black)', msc:'sb-0', order:'Pike Place roast, black — no milk, no syrup.', app:'Select <strong>Brewed Coffee</strong> → Milk: None → Sweeteners: remove all.', note:null, mr:null },
-      { name:'Caffè Americano', e:'🖤', desc:'Espresso diluted with hot water. Bold espresso flavor with a lighter body. Clean and simple.', tags:['z','h'], ms:'0g sugar (no milk)', msc:'sb-0', order:'Caffè Americano — no syrup, no milk.', app:'Select <strong>Caffè Americano</strong> → Milk: None → Flavors: remove all.', note:null, mr:null },
-      { name:'Espresso Shot(s)', e:'⚡', desc:'Pure concentrated espresso. Intensely rich with notes of caramel and dark chocolate. For the purist.', tags:['z','h'], ms:'0g sugar', msc:'sb-0', order:'Double shot of espresso — nothing added.', app:'Select <strong>Espresso</strong> from the menu.', note:null, mr:null },
-      { name:'Espresso Macchiato', e:'🤎', desc:'Espresso "marked" with a small dollop of foam. Intense with just a whisper of creaminess.', tags:['z','h'], ms:'~0g sugar (tiny foam)', msc:'sb-0', order:'Espresso Macchiato — no syrup.', app:'Select <strong>Espresso Macchiato</strong> → Flavors: remove all.', note:null, mr:null },
-      { name:'Cappuccino', e:'☁️', desc:'Equal parts espresso, steamed milk, and thick foam. The classic Italian café style, made low-sugar.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Cappuccino — almond milk, no syrup.', app:'Select <strong>Cappuccino</strong> → Milk: Almond Milk → Flavors: remove all.', note:null, mr:'Almond milk (~5g/cup) is the lowest-sugar steaming milk at Starbucks. Sub <strong>heavy cream</strong> to cut further, though texture will change.' },
-      { name:'Caffè Latte', e:'🥛', desc:'Smooth espresso with steamed milk and a light layer of foam. The everyday classic, made clean.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Caffè Latte — almond milk, no syrup.', app:'Select <strong>Caffè Latte</strong> → Milk: Almond Milk → Flavors: remove all.', note:null, mr:'Almond milk (~5g/cup) is lowest. For near-zero sugar, ask for a <strong>splash of heavy cream</strong> instead (~1g).' },
-      { name:'Flat White', e:'🌀', desc:'Ristretto shots over velvety microfoam — stronger and silkier than a latte, with a bolder punch.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Flat White — almond milk, no syrup.', app:'Select <strong>Flat White</strong> → Milk: Almond Milk → Flavors: remove all.', note:null, mr:'Almond milk (~5g) is lowest. Sub <strong>heavy cream splash</strong> for near-zero.' },
-      { name:'Caffè Misto', e:'🫗', desc:'Half brewed drip coffee, half steamed milk. Lighter than a latte, with the flavor of a great cup of coffee.', tags:['z','h','m'], ms:'~2.5g sugar (half almond milk)', msc:'sb-low', order:'Caffè Misto — almond milk, no syrup.', app:'Select <strong>Caffè Misto</strong> → Milk: Almond Milk.', note:null, mr:'Half cup of almond milk means only ~2.5g sugar. Sub <strong>half heavy cream</strong> for near-zero.' },
-      { name:'Sugar-Free Vanilla Latte', e:'✨', desc:'A sweet, creamy latte without the sugar. Uses sucralose-sweetened vanilla syrup for classic vanilla flavor.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Caffè Latte — almond milk, sugar-free vanilla syrup, no other syrups.', app:'Select <strong>Caffè Latte</strong> → Milk: Almond Milk → Flavors: Sugar-Free Vanilla Syrup, remove all others.', note:'Sugar-free vanilla is available at most locations but can occasionally be out of stock. If unavailable, ask for a plain almond milk latte or add Stevia/Splenda from the condiment bar.', mr:'Almond milk (~5g). For near-zero: <strong>heavy cream + sugar-free vanilla</strong>.' },
-      { name:'Sugar-Free Caramel Latte (New 2026)', e:'🍮', desc:'A new addition as of January 2026 — sugar-free caramel syrup is now part of the year-round menu!', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Caffè Latte — almond milk, sugar-free caramel syrup, no other syrups.', app:'Select <strong>Caffè Latte</strong> → Milk: Almond Milk → Flavors: Sugar-Free Caramel Syrup, remove all others.', note:'Sugar-free caramel syrup was added to the year-round menu in January 2026. Availability may still be limited at some locations — confirm with your barista.', mr:'Almond milk (~5g). Sub <strong>heavy cream</strong> for near-zero.' },
-      { name:'DIY Sugar-Free Chai Latte', e:'🌶️', desc:'Spiced chai without the 42g of sugar in the standard version. Made with the tea bag instead of the concentrate.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Chai tea bag steeped in steamed almond milk — sugar-free vanilla syrup and cinnamon powder.', app:'Select <strong>Hot Tea → Chai Tea</strong> and add a note: "Steam with almond milk, add sugar-free vanilla, add cinnamon. No concentrate."', note:'⚠️ The standard Chai Latte uses a pre-sweetened concentrate with 42g of sugar. You must request the tea bag method specifically. Baristas appreciate a heads-up on busy days.', mr:'Almond milk (~5g) works best here for steaming.' },
-    ]
-  },
-  { cat:'ic', catName:'Iced Coffees', catIcon:'🧊',
-    drinks:[
-      { name:'Iced Caffè Americano', e:'🖤', desc:'Bold espresso shots over ice with cold water. Crisp, refreshing, and completely clean.', tags:['z','c'], ms:'0g sugar (no milk)', msc:'sb-0', order:'Iced Caffè Americano — no syrup, no milk.', app:'Select <strong>Iced Caffè Americano</strong> → Milk: None → Flavors: remove all.', note:null, mr:null },
-      { name:'Iced Caffè Latte', e:'🥤', desc:'Espresso and cold milk poured over ice. Smooth and satisfying — clean with the right customizations.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Iced Caffè Latte — almond milk, no syrup.', app:'Select <strong>Iced Caffè Latte</strong> → Milk: Almond Milk → Flavors: remove all.', note:null, mr:'Almond milk (~5g). Sub <strong>heavy cream splash</strong> for near-zero.' },
-      { name:'Iced Flat White', e:'💠', desc:'Ristretto shots over ice — more concentrated espresso than an iced latte with a silkier texture.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Iced Flat White — almond milk, no syrup.', app:'Select <strong>Iced Flat White</strong> → Milk: Almond Milk → Flavors: remove all.', note:null, mr:'Almond milk (~5g). Sub <strong>heavy cream splash</strong> for near-zero.' },
-      { name:'Iced Coffee (Sugar-Free)', e:'🍦', desc:'Chilled brewed coffee over ice. The default classic syrup is swapped out for sugar-free vanilla.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Iced Coffee — almond milk, no classic syrup, sugar-free vanilla syrup.', app:'Select <strong>Iced Coffee</strong> → Milk: Almond Milk → Sweeteners: remove Classic Syrup → Flavors: Sugar-Free Vanilla Syrup.', note:'⚠️ Iced Coffee automatically includes classic syrup. Always confirm "no classic syrup."', mr:'Almond milk (~5g). Sub <strong>heavy cream</strong> for near-zero.' },
-      { name:'Iced Sugar-Free Vanilla Latte', e:'🌟', desc:'Cold espresso with almond milk and sugar-free vanilla over ice. Creamy, subtly sweet, and satisfying.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Iced Caffè Latte — almond milk, sugar-free vanilla syrup, no other syrups.', app:'Select <strong>Iced Caffè Latte</strong> → Milk: Almond Milk → Flavors: Sugar-Free Vanilla Syrup, remove all others.', note:null, mr:'Almond milk (~5g). Sub <strong>heavy cream</strong> for near-zero.' },
-      { name:'Iced Shaken Espresso (Sugar-Free)', e:'🥊', desc:'Espresso shaken with ice for a frothy, diluted texture. Brown sugar replaced with sugar-free vanilla.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Iced Shaken Espresso — almond milk, sugar-free vanilla syrup, no brown sugar syrup.', app:'Select <strong>Iced Shaken Espresso</strong> → Milk: Almond Milk → Flavors: remove Brown Sugar Syrup, add Sugar-Free Vanilla Syrup.', note:'⚠️ Brown Sugar Syrup is not available sugar-free and must be removed entirely — there is no direct substitute for its flavor.', mr:'Almond milk (~5g). Sub <strong>heavy cream</strong> for near-zero.' },
-    ]
-  },
-  { cat:'cb', catName:'Cold Brew & Nitro', catIcon:'🌬️',
-    drinks:[
-      { name:'Cold Brew (Black)', e:'🌊', desc:'Slow-steeped 20 hours in cold water. Incredibly smooth with natural sweetness and zero bitterness. Pure.', tags:['z','c'], ms:'0g sugar (black)', msc:'sb-0', order:'Cold Brew — black, no classic syrup.', app:'Select <strong>Cold Brew</strong> → Milk: None → Sweeteners: remove Classic Syrup.', note:'⚠️ Classic syrup is added to Cold Brew by default at many locations. Always say "no classic syrup."', mr:null },
-      { name:'Nitro Cold Brew', e:'🫧', desc:'Cold brew infused with nitrogen for creamy, velvety texture and natural sweetness — zero sugar. One of the best drinks on the entire Starbucks menu.', tags:['z','c'], ms:'0g sugar', msc:'sb-0', order:'Nitro Cold Brew — nothing added. Order as-is, no modifications.', app:'Select <strong>Nitro Cold Brew</strong> — no modifications needed. Do not add anything.', note:'Available at most corporate Starbucks locations. May not be available at licensed locations (airports, grocery stores, etc.).',  mr:null },
-      { name:'Cold Brew + Heavy Cream Splash', e:'🌫️', desc:'Cold brew with a pour of heavy cream. Rich, creamy, and near-zero sugar. The best keto-friendly option at Starbucks.', tags:['z','c','m'], ms:'~1g sugar (heavy cream)', msc:'sb-0', order:'Cold Brew — splash of heavy cream, no classic syrup.', app:'Select <strong>Cold Brew</strong> → Milk: Heavy Cream → Sweeteners: remove Classic Syrup.', note:'Heavy cream is the single best low-sugar milk option at Starbucks (~1g per 2 tbsp). Baristas can pour generously — say "light splash" if you want less.', mr:null },
-    ]
-  },
-  { cat:'ht', catName:'Hot Teas', catIcon:'🍵',
-    drinks:[
-      { name:'Mint Majesty', e:'🌿', desc:'Peppermint and spearmint herbal blend. Refreshing, calming, caffeine-free, and zero sugar.', tags:['z','h','cf'], ms:'0g sugar', msc:'sb-0', order:'Mint Majesty — hot water and tea bag only. No syrup.', app:'Select <strong>Mint Majesty</strong> under Hot Teas. No modifications needed.', note:null, mr:null },
-      { name:'Peach Tranquility', e:'🍑', desc:'Fruity blend of peach, rose hips, and chamomile. Naturally sweet, caffeine-free, and zero sugar.', tags:['z','h','cf'], ms:'0g sugar', msc:'sb-0', order:'Peach Tranquility — hot water and tea bag only. No syrup.', app:'Select <strong>Peach Tranquility</strong> under Hot Teas. No modifications needed.', note:null, mr:null },
-      { name:"Emperor's Clouds & Mist", e:'🌫️', desc:'Chinese green tea with a delicate, misty flavor. Light and refreshing with a soft vegetal sweetness.', tags:['z','h'], ms:'0g sugar', msc:'sb-0', order:"Emperor's Clouds & Mist — hot water and tea bag only. No syrup.", app:"Select <strong>Emperor's Clouds & Mist</strong> under Hot Teas. No modifications.", note:null, mr:null },
-      { name:'Royal English Breakfast', e:'🫖', desc:'Robust black tea blend. Full-bodied with a malty richness. The classic morning tea.', tags:['z','h'], ms:'0g sugar', msc:'sb-0', order:'Royal English Breakfast Tea — hot water and tea bag only. No syrup.', app:'Select <strong>Royal English Breakfast</strong> → Sweeteners: remove all.', note:null, mr:null },
-      { name:'Jade Citrus Mint', e:'🍃', desc:'Green tea with spearmint, lemongrass, and lemon verbena. Bright, herbal, and refreshing.', tags:['z','h'], ms:'0g sugar', msc:'sb-0', order:'Jade Citrus Mint — hot water and tea bag only. No syrup.', app:'Select <strong>Jade Citrus Mint</strong> under Hot Teas → Sweeteners: remove all.', note:null, mr:null },
-      { name:'Chai Tea (Bag Only)', e:'🌶️', desc:'Plain chai spice tea bag in hot water. Naturally warming with cinnamon, ginger, and cardamom.', tags:['z','h'], ms:'0g sugar', msc:'sb-0', order:'Chai Tea — hot water and tea bag only. NOT the Chai Latte.', app:'Select <strong>Chai Tea</strong> under Hot Teas (not Chai Latte). No modifications.', note:'⚠️ The Chai Latte uses a sweetened concentrate with 42g of sugar. Request "plain chai tea bag, just hot water."', mr:null },
-    ]
-  },
-  { cat:'it', catName:'Iced Teas', catIcon:'🧊',
-    drinks:[
-      { name:'Iced Black Tea (Unsweetened)', e:'🖤', desc:'Chilled black tea over ice. Bold, slightly tannic, and completely clean when ordered unsweetened.', tags:['z','c'], ms:'0g sugar', msc:'sb-0', order:'Iced Black Tea — unsweetened, no classic syrup.', app:'Select <strong>Iced Black Tea</strong> → Sweeteners: remove Classic Syrup → "Unsweetened."', note:'⚠️ Iced teas come sweetened by default. Always say "unsweetened, no classic syrup."', mr:null },
-      { name:'Iced Green Tea (Unsweetened)', e:'💚', desc:'Light, grassy green tea over ice. Delicate flavor, completely clean when unsweetened.', tags:['z','c'], ms:'0g sugar', msc:'sb-0', order:'Iced Green Tea — unsweetened, no classic syrup.', app:'Select <strong>Iced Green Tea</strong> → Sweeteners: remove Classic Syrup → "Unsweetened."', note:'⚠️ Comes sweetened by default. Always say "unsweetened, no classic syrup."', mr:null },
-      { name:'Iced Passion Tango Herbal Tea', e:'🌺', desc:'Hibiscus, lemongrass, and apple herbal blend over ice. Vibrant, fruity, naturally pink, caffeine-free, and zero sugar.', tags:['z','c','cf'], ms:'0g sugar', msc:'sb-0', order:'Iced Passion Tango Tea — unsweetened, no classic syrup.', app:'Select <strong>Iced Passion Tango Tea</strong> → Sweeteners: remove Classic Syrup → "Unsweetened."', note:'⚠️ Comes sweetened by default. Always say "unsweetened, no classic syrup."', mr:null },
-    ]
-  },
-  { cat:'tl', catName:'Tea Lattes', catIcon:'🫖',
-    drinks:[
-      { name:'Sugar-Free London Fog Latte', e:'🫧', desc:'Earl Grey tea steeped in warm almond milk with sugar-free vanilla. Floral, creamy, and elegantly low-sugar.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'London Fog Tea Latte — almond milk, sugar-free vanilla syrup, no regular vanilla syrup.', app:'Select <strong>London Fog Tea Latte</strong> → Milk: Almond Milk → Flavors: replace Vanilla Syrup with Sugar-Free Vanilla Syrup.', note:null, mr:'Almond milk (~5g) is the lowest-sugar steaming option available.' },
-      { name:'DIY Iced Sugar-Free Chai Latte', e:'🧊', desc:'Iced version of the DIY chai. Cold chai spice tea with almond milk and sugar-free vanilla — without the 42g of sugar.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'sb-low', order:'Chai tea bag over ice in almond milk — sugar-free vanilla syrup, cinnamon powder.', app:'Order an <strong>Iced Chai Tea Latte</strong> and add a note: "Tea bag method, not concentrate. Almond milk, sugar-free vanilla syrup, cinnamon."', note:'⚠️ Standard Iced Chai Latte uses sweetened concentrate (42g sugar). Request the tea bag method explicitly.', mr:'Almond milk (~5g) is the best cold milk option for this drink.' },
-    ]
-  },
+  { cat:'hc', catName:'Hot Coffees', drinks:[
+    { name:'Pike Place / Drip Coffee', e:'☕', desc:'Starbucks\' signature medium roast, brewed fresh every 30 minutes. Bold, smooth, and completely clean. The simplest zero-sugar order on the menu.', tags:['z','h'], ms:'0g sugar', msc:'sp0', order:'Pike Place roast, black — no milk, no syrup.', app:'Select <strong>Brewed Coffee</strong> → Milk: None → Sweeteners: remove all.', note:null, mr:null },
+    { name:'Caffè Americano', e:'🖤', desc:'Espresso shots diluted with hot water. You get the bold depth of espresso with a lighter, less intense body. One of the cleanest drinks on the menu.', tags:['z','h'], ms:'0g sugar', msc:'sp0', order:'Caffè Americano — no syrup, no milk.', app:'Select <strong>Caffè Americano</strong> → Milk: None → Flavors: remove all.', note:null, mr:null },
+    { name:'Espresso Shot(s)', e:'⚡', desc:'Pure concentrated espresso. Intensely rich with notes of caramel and dark chocolate. Two shots is the standard double. For the purist.', tags:['z','h'], ms:'0g sugar', msc:'sp0', order:'Double shot of espresso — nothing added.', app:'Select <strong>Espresso</strong> from the menu.', note:null, mr:null },
+    { name:'Espresso Macchiato', e:'🤎', desc:'Espresso "marked" with just a small dollop of milk foam. Gives you intensity from the espresso with the faintest whisper of creaminess.', tags:['z','h'], ms:'~0g sugar', msc:'sp0', order:'Espresso Macchiato — no syrup.', app:'Select <strong>Espresso Macchiato</strong> → Flavors: remove all.', note:null, mr:null },
+    { name:'Cappuccino', e:'☁️', desc:'Equal parts espresso, steamed milk, and thick, velvety foam. The Italian classic. Swapping to almond milk keeps sugar low while maintaining the creamy texture.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Cappuccino — almond milk, no syrup.', app:'Select <strong>Cappuccino</strong> → Milk: Almond Milk → Flavors: remove all.', note:null, mr:'Almond milk (~5g/cup) is the lowest-sugar steaming option at Starbucks. For near-zero sugar, sub <strong>heavy cream</strong>, though the texture will change.' },
+    { name:'Caffè Latte', e:'🥛', desc:'Smooth espresso with steamed milk and a light layer of foam. The everyday classic, made clean by swapping to almond milk and skipping the syrup.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Caffè Latte — almond milk, no syrup.', app:'Select <strong>Caffè Latte</strong> → Milk: Almond Milk → Flavors: remove all.', note:null, mr:'Almond milk (~5g) is lowest. For near-zero sugar, ask for a <strong>splash of heavy cream</strong> instead (~1g).' },
+    { name:'Flat White', e:'🌀', desc:'Ristretto shots — which are shorter and more concentrated — over velvety microfoam. Stronger and silkier than a latte.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Flat White — almond milk, no syrup.', app:'Select <strong>Flat White</strong> → Milk: Almond Milk → Flavors: remove all.', note:null, mr:'Almond milk (~5g) is lowest. Sub <strong>heavy cream splash</strong> for near-zero.' },
+    { name:'Caffè Misto', e:'🫗', desc:'Half brewed drip coffee, half steamed milk. Lighter than a latte with the familiar flavor of a great cup of coffee. Only half a cup of milk means lower sugar.', tags:['z','h','m'], ms:'~2.5g sugar (almond milk)', msc:'splow', order:'Caffè Misto — almond milk, no syrup.', app:'Select <strong>Caffè Misto</strong> → Milk: Almond Milk.', note:null, mr:'Half cup of almond milk means only ~2.5g sugar. Sub <strong>half heavy cream</strong> for near-zero.' },
+    { name:'Sugar-Free Vanilla Latte', e:'✨', desc:'A sweet, creamy latte without the sugar. Uses sucralose-sweetened sugar-free vanilla syrup to deliver that classic vanilla latte flavor.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Caffè Latte — almond milk, sugar-free vanilla syrup, no other syrups.', app:'Select <strong>Caffè Latte</strong> → Milk: Almond Milk → Flavors: Sugar-Free Vanilla Syrup, remove all others.', note:'Sugar-free vanilla syrup is available at most locations but can occasionally be out of stock. If unavailable, ask for a plain almond milk latte, or add Stevia/Splenda from the condiment bar.', mr:'Almond milk (~5g). For near-zero: <strong>heavy cream + sugar-free vanilla</strong>.' },
+    { name:'Sugar-Free Caramel Latte', e:'🍮', desc:'New as of January 2026 — sugar-free caramel syrup is now a year-round menu item. Warm, buttery caramel flavor without any added sugar.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Caffè Latte — almond milk, sugar-free caramel syrup, no other syrups.', app:'Select <strong>Caffè Latte</strong> → Milk: Almond Milk → Flavors: Sugar-Free Caramel Syrup, remove all others.', note:'Sugar-free caramel was added to the year-round menu in January 2026. Confirm availability with your barista as some locations may still be stocking it.', mr:'Almond milk (~5g). Sub <strong>heavy cream</strong> for near-zero.' },
+    { name:'DIY Sugar-Free Chai Latte', e:'🌶️', desc:'All the warm spice of chai — cinnamon, ginger, cardamom — without the 42g of sugar hiding in the standard version. Made with the plain tea bag, not the sweetened concentrate.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Chai tea bag steeped in steamed almond milk — add sugar-free vanilla syrup and cinnamon powder.', app:'Select <strong>Hot Tea → Chai Tea</strong> and add a note: "Steam with almond milk, add sugar-free vanilla, add cinnamon. No concentrate."', note:'⚠️ The standard Chai Latte uses a pre-sweetened concentrate with 42g of sugar. You must request the tea bag method specifically. Give the barista a heads-up on busy days as it takes a bit longer.', mr:'Almond milk (~5g) works best here for steaming and texture.' },
+  ]},
+  { cat:'ic', catName:'Iced Coffees', drinks:[
+    { name:'Iced Caffè Americano', e:'🖤', desc:'Bold espresso shots over ice with cold water. Crisp, refreshing, and completely clean. A great all-day drink.', tags:['z','c'], ms:'0g sugar', msc:'sp0', order:'Iced Caffè Americano — no syrup, no milk.', app:'Select <strong>Iced Caffè Americano</strong> → Milk: None → Flavors: remove all.', note:null, mr:null },
+    { name:'Iced Caffè Latte', e:'🥤', desc:'Espresso and cold milk poured over ice. Smooth and satisfying — made clean by using almond milk and skipping the syrup.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Iced Caffè Latte — almond milk, no syrup.', app:'Select <strong>Iced Caffè Latte</strong> → Milk: Almond Milk → Flavors: remove all.', note:null, mr:'Almond milk (~5g). Sub <strong>heavy cream splash</strong> for near-zero.' },
+    { name:'Iced Flat White', e:'💠', desc:'Ristretto shots over ice — more concentrated espresso than an iced latte, with a silkier texture and more punch.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Iced Flat White — almond milk, no syrup.', app:'Select <strong>Iced Flat White</strong> → Milk: Almond Milk → Flavors: remove all.', note:null, mr:'Almond milk (~5g). Sub <strong>heavy cream splash</strong> for near-zero.' },
+    { name:'Iced Coffee (Sugar-Free)', e:'🍦', desc:'Chilled brewed coffee over ice. The default classic syrup is swapped out for sugar-free vanilla to keep it clean.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Iced Coffee — almond milk, no classic syrup, sugar-free vanilla syrup.', app:'Select <strong>Iced Coffee</strong> → Milk: Almond Milk → Sweeteners: remove Classic Syrup → Flavors: Sugar-Free Vanilla Syrup.', note:'⚠️ Iced Coffee automatically includes classic syrup by default. Always confirm "no classic syrup."', mr:'Almond milk (~5g). Sub <strong>heavy cream</strong> for near-zero.' },
+    { name:'Iced Sugar-Free Vanilla Latte', e:'🌟', desc:'Cold espresso with almond milk and sugar-free vanilla over ice. Creamy, subtly sweet, and satisfying — without the sugar.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Iced Caffè Latte — almond milk, sugar-free vanilla syrup, no other syrups.', app:'Select <strong>Iced Caffè Latte</strong> → Milk: Almond Milk → Flavors: Sugar-Free Vanilla Syrup, remove all others.', note:null, mr:'Almond milk (~5g). Sub <strong>heavy cream</strong> for near-zero.' },
+    { name:'Iced Shaken Espresso (Sugar-Free)', e:'🥊', desc:'Espresso shaken vigorously with ice until frothy and slightly diluted. The brown sugar syrup is replaced with sugar-free vanilla for a clean version of this popular drink.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Iced Shaken Espresso — almond milk, sugar-free vanilla syrup, no brown sugar syrup.', app:'Select <strong>Iced Shaken Espresso</strong> → Milk: Almond Milk → Flavors: remove Brown Sugar Syrup, add Sugar-Free Vanilla Syrup.', note:'⚠️ Brown Sugar Syrup is not available in a sugar-free version and must be removed entirely. The flavor profile will be slightly different.', mr:'Almond milk (~5g). Sub <strong>heavy cream</strong> for near-zero, though it changes texture significantly.' },
+  ]},
+  { cat:'cb', catName:'Cold Brew & Nitro', drinks:[
+    { name:'Cold Brew (Black)', e:'🌊', desc:'Steeped in cold water for 20 hours, never heated. Incredibly smooth with a natural sweetness and zero bitterness. Completely clean and one of the best zero-sugar options on the menu.', tags:['z','c'], ms:'0g sugar', msc:'sp0', order:'Cold Brew — black, no classic syrup.', app:'Select <strong>Cold Brew</strong> → Milk: None → Sweeteners: remove Classic Syrup.', note:'⚠️ Classic syrup is added to Cold Brew by default at many locations. Always explicitly say "no classic syrup."', mr:null },
+    { name:'Nitro Cold Brew', e:'🫧', desc:'Cold brew infused with nitrogen on tap. The nitrogen gives it a creamy, velvety texture and a subtle natural sweetness — all with zero sugar. One of the best drinks on the entire Starbucks menu, full stop.', tags:['z','c'], ms:'0g sugar', msc:'sp0', order:'Nitro Cold Brew — nothing added. Order as-is.', app:'Select <strong>Nitro Cold Brew</strong> — no modifications needed. Do not add anything.', note:'Available at most corporate Starbucks. May not be available at licensed locations (airports, grocery stores, hotel lobbies, etc.).', mr:null },
+    { name:'Cold Brew + Heavy Cream', e:'🌫️', desc:'Cold brew with a splash of heavy cream poured over the top. Rich, creamy, and the single best near-zero-sugar milk option at Starbucks. A popular keto-friendly order.', tags:['z','c','m'], ms:'~1g sugar (heavy cream)', msc:'sp0', order:'Cold Brew — splash of heavy cream, no classic syrup.', app:'Select <strong>Cold Brew</strong> → Milk: Heavy Cream → Sweeteners: remove Classic Syrup.', note:'Heavy cream is the best low-sugar milk option at Starbucks (~1g per 2 tbsp). Baristas can pour generously — say "light splash" if you want less.', mr:null },
+  ]},
+  { cat:'ht', catName:'Hot Teas', drinks:[
+    { name:'Mint Majesty', e:'🌿', desc:'A blend of peppermint and spearmint. Refreshing, cooling, and calming. Naturally caffeine-free and completely sugar-free — just hot water and herbs.', tags:['z','h','f'], ms:'0g sugar', msc:'sp0', order:'Mint Majesty — hot water and tea bag only. No syrup.', app:'Select <strong>Mint Majesty</strong> under Hot Teas. No modifications needed.', note:null, mr:null },
+    { name:'Peach Tranquility', e:'🍑', desc:'A fruity herbal blend of peach, rose hips, and chamomile. Naturally sweet-smelling and caffeine-free. Zero sugar with no modifications needed.', tags:['z','h','f'], ms:'0g sugar', msc:'sp0', order:'Peach Tranquility — hot water and tea bag only. No syrup.', app:'Select <strong>Peach Tranquility</strong> under Hot Teas. No modifications needed.', note:null, mr:null },
+    { name:"Emperor's Clouds & Mist", e:'🌫️', desc:'A Chinese green tea with a delicate, misty flavor profile. Light, slightly vegetal, and refreshing. Zero sugar as-is.', tags:['z','h'], ms:'0g sugar', msc:'sp0', order:"Emperor's Clouds & Mist — hot water and tea bag only. No syrup.", app:"Select <strong>Emperor's Clouds & Mist</strong> under Hot Teas. No modifications.", note:null, mr:null },
+    { name:'Royal English Breakfast', e:'🫖', desc:'A robust, full-bodied black tea blend with a rich malty character. The classic British morning tea. Zero sugar without any syrup.', tags:['z','h'], ms:'0g sugar', msc:'sp0', order:'Royal English Breakfast Tea — hot water and tea bag only. No syrup.', app:'Select <strong>Royal English Breakfast</strong> → Sweeteners: remove all.', note:null, mr:null },
+    { name:'Jade Citrus Mint', e:'🍃', desc:'Green tea with spearmint, lemongrass, and lemon verbena. Bright, herbal, and gently refreshing. Zero sugar.', tags:['z','h'], ms:'0g sugar', msc:'sp0', order:'Jade Citrus Mint — hot water and tea bag only. No syrup.', app:'Select <strong>Jade Citrus Mint</strong> under Hot Teas → Sweeteners: remove all.', note:null, mr:null },
+    { name:'Chai Tea (Bag Only)', e:'🌶️', desc:'The plain chai spice tea bag in hot water. Naturally warming with cinnamon, ginger, and cardamom. Zero sugar — completely different from the Chai Latte.', tags:['z','h'], ms:'0g sugar', msc:'sp0', order:'Chai Tea — hot water and tea bag only. NOT the Chai Latte.', app:'Select <strong>Chai Tea</strong> under Hot Teas (not Chai Latte). No modifications.', note:'⚠️ The Chai Latte uses a pre-sweetened concentrate with 42g of sugar. Request "plain chai tea bag, just hot water" to get this zero-sugar version.', mr:null },
+  ]},
+  { cat:'it', catName:'Iced Teas', drinks:[
+    { name:'Iced Black Tea (Unsweetened)', e:'🖤', desc:'Chilled black tea poured over ice. Bold, slightly tannic, and completely clean when ordered without the default syrup.', tags:['z','c'], ms:'0g sugar', msc:'sp0', order:'Iced Black Tea — unsweetened, no classic syrup.', app:'Select <strong>Iced Black Tea</strong> → Sweeteners: remove Classic Syrup → "Unsweetened."', note:'⚠️ All iced teas at Starbucks come sweetened by default. Always say "unsweetened, no classic syrup."', mr:null },
+    { name:'Iced Green Tea (Unsweetened)', e:'💚', desc:'Light, grassy green tea over ice. Delicate and refreshing. Completely clean when ordered without the default classic syrup.', tags:['z','c'], ms:'0g sugar', msc:'sp0', order:'Iced Green Tea — unsweetened, no classic syrup.', app:'Select <strong>Iced Green Tea</strong> → Sweeteners: remove Classic Syrup → "Unsweetened."', note:'⚠️ Comes sweetened by default. Always specify "unsweetened, no classic syrup."', mr:null },
+    { name:'Iced Passion Tango Herbal Tea', e:'🌺', desc:'A hibiscus, lemongrass, and apple herbal blend over ice. Vibrantly pink, fruity, naturally tart, caffeine-free, and completely zero sugar when unsweetened.', tags:['z','c','f'], ms:'0g sugar', msc:'sp0', order:'Iced Passion Tango Tea — unsweetened, no classic syrup.', app:'Select <strong>Iced Passion Tango Tea</strong> → Sweeteners: remove Classic Syrup → "Unsweetened."', note:'⚠️ Comes sweetened by default. Always specify "unsweetened, no classic syrup."', mr:null },
+  ]},
+  { cat:'tl', catName:'Tea Lattes', drinks:[
+    { name:'Sugar-Free London Fog Latte', e:'🫧', desc:'Earl Grey tea steeped in warm steamed almond milk with sugar-free vanilla. Floral, creamy, and elegant. A sophisticated low-sugar option.', tags:['z','h','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'London Fog Tea Latte — almond milk, sugar-free vanilla syrup, no regular vanilla syrup.', app:'Select <strong>London Fog Tea Latte</strong> → Milk: Almond Milk → Flavors: replace Vanilla Syrup with Sugar-Free Vanilla Syrup.', note:null, mr:'Almond milk (~5g) is the lowest-sugar steaming option available at Starbucks.' },
+    { name:'DIY Iced Sugar-Free Chai Latte', e:'🧊', desc:'The iced version of the DIY chai. Cold chai spice tea with almond milk and sugar-free vanilla over ice — without the 42g of sugar hiding in the standard version.', tags:['z','c','m'], ms:'~5g sugar (almond milk)', msc:'splow', order:'Chai tea bag over ice in almond milk — sugar-free vanilla syrup, cinnamon powder.', app:'Order an <strong>Iced Chai Tea Latte</strong> and add a note: "Tea bag method, not concentrate. Almond milk, sugar-free vanilla syrup, cinnamon."', note:'⚠️ Standard Iced Chai Latte uses a pre-sweetened concentrate (42g sugar). You must request the tea bag method explicitly.', mr:'Almond milk (~5g) is the best cold milk option for this drink.' },
+  ]},
 ];
 
-const tagMap = { z:{c:'tag-z',l:'0 Added Sugar'}, h:{c:'tag-h',l:'Hot'}, c:{c:'tag-c',l:'Iced/Cold'}, m:{c:'tag-m',l:'Modified'}, cf:{c:'tag-cf',l:'Caffeine-Free'} };
+const TAGS = { z:{c:'tz',l:'0 Sugar'}, h:{c:'th',l:'Hot'}, c:{c:'tc',l:'Cold'}, m:{c:'tm',l:'Modified'}, f:{c:'tf',l:'Caffeine-Free'} };
+let activeCat = 'all';
 let activeDrink = null;
 
-function renderAll() {
-  const main = document.getElementById('mainContent');
-  main.innerHTML = DATA.map(cat => `
-    <div class="cat-section" id="cat-${cat.cat}">
-      <div class="cat-header">
-        <div class="cat-icon">${cat.catIcon}</div>
-        <div class="cat-title">${cat.catName}</div>
-        <div class="cat-count">${cat.drinks.length}</div>
-      </div>
-      ${cat.drinks.map(d => renderDrink(d, cat.cat)).join('')}
-    </div>
-  `).join('');
-}
+// ── RENDER LIST ──────────────────────────────────────────────────────────────
+function renderList(filter='', cat='all') {
+  const scroll = document.getElementById('listScroll');
+  const empty = document.getElementById('emptyState');
+  let html = '';
+  let count = 0;
 
-function esc(s){ return s.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
-
-function renderDrink(d, catId) {
-  const tags = d.tags.map(t=>{ const m=tagMap[t]; return m?`<span class="tag ${m.c}">${m.l}</span>`:'';}).join('');
-  const nm = d.tags.includes('m') ? 'drink-name mod' : 'drink-name';
-  const dJson = esc(JSON.stringify(d));
-  return `
-  <div class="drink-card" data-cat="${catId}" data-search="${d.name.toLowerCase()} ${d.desc.toLowerCase()}">
-    <div class="card-header" onclick="toggle(this.closest('.drink-card'))">
-      <div class="card-photo-wrap">${d.e}</div>
-      <div class="card-info">
-        <div class="${nm}">${d.name}</div>
-        <div class="drink-desc">${d.desc}</div>
-        <div class="tags">${tags}</div>
-        <span class="sugar-badge ${d.msc}">🍬 ${d.ms}</span>
-      </div>
-      <div class="chevron">▼</div>
-    </div>
-    <div class="card-details">
-      ${d.mr ? `<div class="milk-rec">🥛 <strong>Milk note:</strong> ${d.mr}</div>` : ''}
-      <div class="dl">How to order</div>
-      <div class="db">${d.order}</div>
-      <div class="dl">In the Starbucks App</div>
-      <div class="db">${d.app}</div>
-      ${d.note ? `<div class="note-box">${d.note}</div>` : ''}
-      <div class="order-buttons">
-        <a class="btn-order" href="#" onclick="openSbux();return false;">☕ Open App</a>
-        <button class="btn-icon" title="Copy order" onclick="doCopy(event,'${esc(d.order)}',this)">📋</button>
-        <button class="btn-icon" title="Share" onclick="openShare(event,'${dJson}')">📤</button>
-      </div>
-    </div>
-  </div>`;
-}
-
-function toggle(el) {
-  const exp = el.classList.contains('expanded');
-  document.querySelectorAll('.drink-card.expanded').forEach(c=>c.classList.remove('expanded'));
-  if(!exp){ el.classList.add('expanded'); setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'nearest'}),60); }
-}
-
-function filterCat(id, tab) {
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  tab.classList.add('active');
-  document.getElementById('searchInput').value='';
-  document.querySelectorAll('.drink-card').forEach(c=>c.style.display=(id==='all'||c.dataset.cat===id)?'':'none');
-  document.querySelectorAll('.cat-section').forEach(s=>s.style.display=(id==='all'||s.id===`cat-${id}`)?'':'none');
-  document.getElementById('emptyState').classList.remove('visible');
-}
-
-function filterDrinks(q) {
-  q = q.toLowerCase().trim();
-  document.querySelectorAll('.tab').forEach((t,i)=>i===0?t.classList.add('active'):t.classList.remove('active'));
-  let v=0;
-  document.querySelectorAll('.cat-section').forEach(s=>s.style.display='');
-  document.querySelectorAll('.drink-card').forEach(c=>{
-    const m=!q||c.dataset.search.includes(q);
-    c.style.display=m?'':'none'; if(m)v++;
+  DATA.forEach(section => {
+    if(cat !== 'all' && section.cat !== cat) return;
+    const rows = section.drinks.filter(d => !filter || (d.name+d.desc).toLowerCase().includes(filter));
+    if(!rows.length) return;
+    const showLabel = cat === 'all';
+    if(showLabel) html += `<div class="cat-label">${section.catName}</div>`;
+    rows.forEach(d => {
+      const tags = d.tags.map(t=>{ const m=TAGS[t]; return m?`<span class="tag ${m.c}">${m.l}</span>`:'';}).join('');
+      const nm = d.tags.includes('m') ? 'row-name mod' : 'row-name';
+      html += `
+      <div class="drink-row" onclick="openDetail(${DATA.indexOf(section)},${section.drinks.indexOf(d)})">
+        <div class="row-emoji">${d.e}</div>
+        <div class="row-body">
+          <div class="${nm}">${d.name}</div>
+          <div class="row-tags">${tags}</div>
+          <span class="sugar-pill ${d.msc}">${d.ms}</span>
+        </div>
+        <div class="row-arrow">›</div>
+      </div>`;
+      count++;
+    });
   });
-  document.querySelectorAll('.cat-section').forEach(s=>{
-    s.style.display=Array.from(s.querySelectorAll('.drink-card')).some(c=>c.style.display!=='none')?'':'none';
-  });
-  document.getElementById('emptyState').classList.toggle('visible',v===0);
+
+  // clear old rows (keep empty state div)
+  Array.from(scroll.children).forEach(c=>{ if(c.id!=='emptyState') c.remove(); });
+  scroll.insertAdjacentHTML('afterbegin', html);
+  empty.classList.toggle('on', count === 0);
 }
 
-function doCopy(e, text, btn) {
-  e.stopPropagation();
+// ── OPEN DETAIL ──────────────────────────────────────────────────────────────
+function openDetail(si, di) {
+  const d = DATA[si].drinks[di];
+  activeDrink = d;
+  const tags = d.tags.map(t=>{ const m=TAGS[t]; return m?`<span class="tag ${m.c}">${m.l}</span>`:'';}).join('');
+  const nm = d.tags.includes('m') ? 'detail-name mod' : 'detail-name';
+
+  document.getElementById('detailScroll').innerHTML = `
+    <div class="detail-hero">
+      <span class="detail-emoji">${d.e}</span>
+      <div class="${nm}">${d.name}</div>
+      <div class="detail-tags">${tags}</div>
+      <span class="detail-sugar ${d.msc}">🍬 ${d.ms}</span>
+      <p class="detail-desc">${d.desc}</p>
+    </div>
+
+    ${d.mr ? `<div class="milk-box">🥛 <strong>Milk note:</strong> ${d.mr}</div>` : ''}
+
+    <div class="section-label">How to order</div>
+    <div class="info-box">${d.order}</div>
+
+    <div class="section-label">In the Starbucks App</div>
+    <div class="info-box">${d.app}</div>
+
+    ${d.note ? `<div class="warn-box">${d.note}</div>` : ''}
+
+    <div class="detail-actions">
+      <button class="btn-primary" onclick="openSbux()">☕ Open Starbucks App</button>
+      <button class="btn-secondary" title="Copy order" onclick="doCopy('${escJ(d.order)}',this)">📋</button>
+      <button class="btn-secondary" title="Share" onclick="openShareScreen()">📤</button>
+    </div>
+  `;
+
+  document.getElementById('detailScroll').scrollTop = 0;
+  document.getElementById('detailScreen').classList.add('open');
+}
+
+// ── SHARE SCREEN ──────────────────────────────────────────────────────────────
+function openShareScreen() {
+  const d = activeDrink;
+  document.getElementById('shareScroll').innerHTML = `
+    <div class="share-title">Share this drink</div>
+    <div class="share-sub">Send the order to a friend</div>
+    <div class="share-card">
+      <div class="sc-name">${d.e} ${d.name}</div>
+      <div class="sc-desc">${d.desc}</div>
+      <div class="sc-order">How to order: ${d.order}</div>
+    </div>
+    <div class="share-options">
+      <div class="share-opt" onclick="doShare('copy')"><div class="so-icon">📋</div><div class="so-label">Copy Text</div><div class="so-sub">Paste anywhere</div></div>
+      <div class="share-opt" onclick="doShare('native')"><div class="so-icon">📤</div><div class="so-label">Share Sheet</div><div class="so-sub">Messages, Mail…</div></div>
+      <div class="share-opt" onclick="doShare('sms')"><div class="so-icon">💬</div><div class="so-label">Text Message</div><div class="so-sub">Open in Messages</div></div>
+      <div class="share-opt" onclick="doShare('email')"><div class="so-icon">✉️</div><div class="so-label">Email</div><div class="so-sub">Open in Mail</div></div>
+    </div>
+  `;
+  document.getElementById('shareScroll').scrollTop = 0;
+  document.getElementById('shareScreen').classList.add('open');
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function goBack(screenId) {
+  document.getElementById(screenId).classList.remove('open');
+}
+
+// ── FILTER / TABS ─────────────────────────────────────────────────────────────
+function setTab(cat, el) {
+  activeCat = cat;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('searchInput').value = '';
+  renderList('', cat);
+}
+
+function doSearch(q) {
+  document.querySelectorAll('.tab').forEach((t,i)=>i===0?t.classList.add('on'):t.classList.remove('on'));
+  activeCat = 'all';
+  renderList(q.toLowerCase().trim(), 'all');
+}
+
+// ── ACTIONS ───────────────────────────────────────────────────────────────────
+function doCopy(text, btn) {
   navigator.clipboard.writeText(text).then(()=>{
-    btn.classList.add('copied'); btn.textContent='✓';
-    setTimeout(()=>{btn.classList.remove('copied');btn.textContent='📋';},2000);
-  }).catch(()=>{btn.textContent='✓';setTimeout(()=>btn.textContent='📋',2000);});
+    const orig = btn.textContent;
+    btn.textContent='✓';
+    setTimeout(()=>btn.textContent=orig, 2000);
+  });
+}
+
+function doShare(method) {
+  const d = activeDrink;
+  const text = `☕ Zero Sugar Starbucks: ${d.name}\n\n${d.desc}\n\nHow to order:\n${d.order}\n\nIn the app:\n${d.app.replace(/<[^>]+>/g,'')}`;
+  const sub = `Zero Sugar Starbucks: ${d.name}`;
+  document.getElementById('shareScreen').classList.remove('open');
+  if(method==='copy'){ navigator.clipboard.writeText(text).then(()=>showToast('Copied!')); }
+  else if(method==='native'&&navigator.share){ navigator.share({title:sub,text}).catch(()=>{}); }
+  else if(method==='native'){ navigator.clipboard.writeText(text).then(()=>showToast('Copied — paste to share!')); }
+  else if(method==='sms'){ window.location=`sms:?body=${encodeURIComponent(text)}`; }
+  else if(method==='email'){ window.location=`mailto:?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(text)}`; }
 }
 
 function openSbux() {
@@ -316,37 +389,22 @@ function openSbux() {
   else{window.open('https://app.starbucks.com/','_blank');}
 }
 
-function openShare(e, dJson) {
-  e.stopPropagation();
-  const d = JSON.parse(dJson.replace(/&quot;/g,'"'));
-  activeDrink = d;
-  document.getElementById('sharePreview').innerHTML=`
-    <div class="sp-name">${d.e} ${d.name}</div>
-    <div class="sp-desc">${d.desc}</div>
-    <div class="sp-order">How to order: ${d.order}</div>`;
-  document.getElementById('shareModal').classList.add('open');
-}
-
-function doShare(method) {
-  if(!activeDrink) return;
-  const d = activeDrink;
-  const text = `☕ Zero Sugar Starbucks: ${d.name}\n\n${d.desc}\n\nHow to order:\n${d.order}\n\nIn the app:\n${d.app.replace(/<[^>]+>/g,'')}`;
-  const sub = `Zero Sugar Starbucks: ${d.name}`;
-  document.getElementById('shareModal').classList.remove('open');
-  if(method==='copy'){navigator.clipboard.writeText(text).then(()=>toast('Copied to clipboard!'));}
-  else if(method==='native'&&navigator.share){navigator.share({title:sub,text}).catch(()=>{});}
-  else if(method==='native'){navigator.clipboard.writeText(text).then(()=>toast('Copied — paste to share!'));}
-  else if(method==='sms'){window.location=`sms:?body=${encodeURIComponent(text)}`;}
-  else if(method==='email'){window.location=`mailto:?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(text)}`;}
-}
-
-function toast(msg) {
+function showToast(msg) {
   const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
+  t.textContent=msg; t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2400);
 }
 
-renderAll();
+function escJ(s){ return s.replace(/'/g,"\\'"); }
+
+// Handle Android back button
+window.addEventListener('popstate', ()=>{
+  if(document.getElementById('shareScreen').classList.contains('open')){ goBack('shareScreen'); }
+  else if(document.getElementById('detailScreen').classList.contains('open')){ goBack('detailScreen'); }
+});
+
+// Init
+renderList();
 </script>
 </body>
 </html>
