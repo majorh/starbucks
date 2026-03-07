@@ -27,6 +27,7 @@ export default function TeaScreen({ navigation }) {
     return (
       <DrinkRow
         drink={item.drink}
+        showHeart={false}
         onPress={() => navigation.navigate('Detail', { drink: item.drink })}
       />
     );
