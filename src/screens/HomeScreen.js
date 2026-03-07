@@ -13,6 +13,17 @@ export default function HomeScreen({ navigation }) {
 
   const listData = useMemo(() => {
     const items = [];
+
+    // Seasonal section — any category with id 'seasonal' floats to the top
+    const seasonal = categories.find((c) => c.id === 'seasonal');
+    if (seasonal && seasonal.drinks.length > 0) {
+      items.push({ type: 'seasonal_header', key: 'h_seasonal', label: seasonal.name || '🍂 Seasonal' });
+      seasonal.drinks.forEach((d) =>
+        items.push({ type: 'drink', key: 'seasonal_' + d.id, drink: d })
+      );
+    }
+
+    // Favorites
     const favDrinks = allDrinks.filter((d) => favorites.has(d.id));
     if (favDrinks.length > 0) {
       items.push({ type: 'header', key: 'h_favs', label: 'Favorites' });
@@ -20,16 +31,29 @@ export default function HomeScreen({ navigation }) {
         items.push({ type: 'drink', key: 'fav_' + d.id, drink: d })
       );
     }
-    categories.forEach((cat) => {
+
+    // All other categories (skip seasonal — already shown at top)
+    categories.filter((c) => c.id !== 'seasonal').forEach((cat) => {
       items.push({ type: 'header', key: 'h_' + cat.id, label: cat.name });
       cat.drinks.forEach((d) =>
         items.push({ type: 'drink', key: d.id, drink: d })
       );
     });
+
     return items;
   }, [favorites, categories, allDrinks]);
 
   const renderItem = ({ item }) => {
+    if (item.type === 'seasonal_header') {
+      return (
+        <View style={styles.seasonalHeader}>
+          <Text style={styles.seasonalLabel}>{item.label}</Text>
+          <View style={styles.seasonalBadge}>
+            <Text style={styles.seasonalBadgeText}>Limited Time</Text>
+          </View>
+        </View>
+      );
+    }
     if (item.type === 'header') {
       return <Text style={styles.sectionHeader}>{item.label}</Text>;
     }
@@ -71,11 +95,21 @@ const styles = StyleSheet.create({
   loader: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   list: { paddingHorizontal: 16, paddingBottom: 24 },
   sectionHeader: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: colors.cream,
-    marginTop: 20,
-    marginBottom: 12,
-    letterSpacing: -0.3,
+    fontSize: 20, fontWeight: '700', color: colors.cream,
+    marginTop: 20, marginBottom: 12, letterSpacing: -0.3,
   },
+  seasonalHeader: {
+    flexDirection: 'row', alignItems: 'center',
+    marginTop: 20, marginBottom: 12,
+  },
+  seasonalLabel: {
+    fontSize: 20, fontWeight: '700', color: colors.cream,
+    letterSpacing: -0.3, marginRight: 10,
+  },
+  seasonalBadge: {
+    backgroundColor: 'rgba(255,180,0,0.15)',
+    borderWidth: 1, borderColor: 'rgba(255,180,0,0.3)',
+    borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3,
+  },
+  seasonalBadgeText: { fontSize: 10, fontWeight: '700', color: '#ffc94d' },
 });

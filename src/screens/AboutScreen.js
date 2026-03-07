@@ -107,7 +107,13 @@ export default function AboutScreen({ navigation }) {
         <Section title="A Note on Milk & Sugar">
           <Row
             icon="🥛"
-            text="No Starbucks plant-based milk is truly unsweetened. Almond milk contains ~5g of added sugar per cup and is the lowest-sugar option. Heavy cream (~1g per splash) is the best choice for near-zero sugar drinks."
+            text="No Starbucks plant-based milk is truly unsweetened. Heavy cream is the best choice for near-zero sugar drinks. Almond milk is the lowest-sugar plant-based option."
+          />
+          <View style={styles.divider} />
+          <Row
+            icon="📊"
+            text="View the full Milk Sugar Guide — all options ranked lowest to highest sugar →"
+            onPress={() => navigation.navigate('MilkGuide')}
           />
         </Section>
 

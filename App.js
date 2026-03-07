@@ -8,9 +8,11 @@ import HomeScreen from './src/screens/HomeScreen';
 import CoffeeScreen from './src/screens/CoffeeScreen';
 import TeaScreen from './src/screens/TeaScreen';
 import FavoritesScreen from './src/screens/FavoritesScreen';
+import CalculatorScreen from './src/screens/CalculatorScreen';
 import DetailScreen from './src/screens/DetailScreen';
 import SearchScreen from './src/screens/SearchScreen';
 import AboutScreen from './src/screens/AboutScreen';
+import MilkGuideScreen from './src/screens/MilkGuideScreen';
 import { FavoritesProvider } from './src/context/FavoritesContext';
 import { DrinksProvider } from './src/context/DrinksContext';
 import { colors } from './src/data/theme';
@@ -52,6 +54,8 @@ function TabNavigator() {
         options={{ tabBarIcon: ({ focused }) => <TabIcon emoji="🍵" focused={focused} /> }} />
       <Tab.Screen name="Favorites" component={FavoritesScreen}
         options={{ tabBarIcon: ({ focused }) => <TabIcon emoji="❤️" focused={focused} /> }} />
+      <Tab.Screen name="Calculator" component={CalculatorScreen}
+        options={{ tabBarIcon: ({ focused }) => <TabIcon emoji="🧮" focused={focused} /> }} />
     </Tab.Navigator>
   );
 }
@@ -70,6 +74,8 @@ export default function App() {
                 options={{ animation: 'fade' }} />
               <Stack.Screen name="About" component={AboutScreen}
                 options={{ animation: 'slide_from_bottom' }} />
+              <Stack.Screen name="MilkGuide" component={MilkGuideScreen}
+                options={{ animation: 'slide_from_right' }} />
             </Stack.Navigator>
           </NavigationContainer>
         </FavoritesProvider>

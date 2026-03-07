@@ -3,6 +3,7 @@
     "name": "Zero Sugar Starbucks",
     "slug": "zero-sugar-starbucks",
     "version": "1.0.0",
+    "platforms": ["ios", "android"],
     "sdkVersion": "54.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
