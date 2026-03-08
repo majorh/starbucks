@@ -28,7 +28,7 @@ export default function SearchScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.bg} />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <View style={styles.topRow}>
         <View style={styles.inputWrap}>
           <Text style={styles.inputIcon}>🔍</Text>
@@ -78,7 +78,7 @@ export default function SearchScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.bg },
+  safe: { flex: 1, backgroundColor: colors.surface },
   topRow: {
     flexDirection: 'row', alignItems: 'center',
     paddingHorizontal: 16, paddingVertical: 12,
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     borderWidth: 1, borderColor: colors.border, paddingHorizontal: 12,
   },
   inputIcon: { fontSize: 15, marginRight: 8 },
-  input: { flex: 1, color: colors.cream, fontSize: 16, paddingVertical: 11 },
+  input: { flex: 1, color: colors.text, fontSize: 16, paddingVertical: 11 },
   cancelBtn: { marginLeft: 12, paddingVertical: 8 },
   cancelText: { color: colors.green, fontSize: 16, fontWeight: '600' },
   list: { paddingHorizontal: 16, paddingTop: 12, paddingBottom: 24 },

@@ -18,7 +18,7 @@ export default function FavoritesScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.bg} />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <ScreenHeader title="Favorites" />
       {favDrinks.length === 0 ? (
         <View style={styles.empty}>
@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40, paddingBottom: 80,
   },
   emptyEmoji: { fontSize: 56, marginBottom: 20 },
-  emptyTitle: { fontSize: 22, fontWeight: '700', color: colors.cream, marginBottom: 10, textAlign: 'center' },
+  emptyTitle: { fontSize: 22, fontWeight: '700', color: colors.text, marginBottom: 10, textAlign: 'center' },
   emptySubtitle: { fontSize: 15, color: colors.muted, textAlign: 'center', lineHeight: 22 },
 });

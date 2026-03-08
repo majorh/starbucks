@@ -58,3 +58,10 @@ export function getSugarLevel(grams) {
   if (grams <= 30)  return { label: 'Moderate',   color: '#ff9f43', bg: 'rgba(255,159,67,0.12)', border: 'rgba(255,159,67,0.25)' };
   return            { label: 'High',              color: '#ff6b6b', bg: 'rgba(255,107,107,0.12)', border: 'rgba(255,107,107,0.25)' };
 }
+
+export const SIZES = [
+  { id: 'tall',       label: 'Tall',         oz: '12oz', pumpMultiplier: 0.75, hotPumps: 3, icedPumps: 3 },
+  { id: 'grande',     label: 'Grande',       oz: '16oz', pumpMultiplier: 1.0,  hotPumps: 4, icedPumps: 4 },
+  { id: 'venti_hot',  label: 'Venti (Hot)',  oz: '20oz', pumpMultiplier: 1.25, hotPumps: 5, icedPumps: 5 },
+  { id: 'venti_iced', label: 'Venti (Iced)', oz: '24oz', pumpMultiplier: 1.5,  hotPumps: 6, icedPumps: 6 },
+];

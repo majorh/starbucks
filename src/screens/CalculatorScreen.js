@@ -6,7 +6,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../data/theme';
 import { useDrinks } from '../context/DrinksContext';
-import { BASES, MILKS, SYRUPS, EXTRAS, getSugarLevel } from '../data/calculator';
+import { BASES, MILKS, SYRUPS, EXTRAS, SIZES, getSugarLevel } from '../data/calculator';
 import ScreenHeader from '../components/ScreenHeader';
 
 // ─── Small stepper ────────────────────────────────────────────────────────────
@@ -95,6 +95,7 @@ export default function CalculatorScreen({ navigation }) {
   const [selectedSyrups, setSelectedSyrups] = useState([]);
   const [syrupPumps, setSyrupPumps] = useState({});
   const [selectedExtras, setSelectedExtras] = useState([]);
+  const [selectedSize, setSelectedSize] = useState(SIZES[1]); // Default Grande
   const [pickerVisible, setPickerVisible] = useState(false);
   const [sourceDrink, setSourceDrink] = useState(null);
 
@@ -167,11 +168,11 @@ export default function CalculatorScreen({ navigation }) {
     let total = selectedBase.sugarPer * baseQty;
     total += selectedMilk.sugarPer;
     selectedSyrups.forEach((s) => {
-      total += s.sugarPer * (syrupPumps[s.id] || 2);
+      total += s.sugarPer * (syrupPumps[s.id] || selectedSize.hotPumps);
     });
     selectedExtras.forEach((e) => { total += e.sugarPer; });
     return Math.round(total * 10) / 10;
-  }, [selectedBase, baseQty, selectedMilk, selectedSyrups, syrupPumps, selectedExtras]);
+  }, [selectedBase, baseQty, selectedMilk, selectedSyrups, syrupPumps, selectedExtras, selectedSize]);
 
   const level = getSugarLevel(totalSugar);
 
@@ -180,7 +181,7 @@ export default function CalculatorScreen({ navigation }) {
 
   return (
     <SafeAreaView style={st.safe} edges={['top']}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.bg} />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
       <ScreenHeader title="Calculator" onSearchPress={() => navigation.navigate('Search')} />
 
       <ScrollView contentContainerStyle={st.scroll} showsVerticalScrollIndicator={false}>
@@ -221,6 +222,25 @@ export default function CalculatorScreen({ navigation }) {
           <Text style={st.startFromText}>Start from an existing drink</Text>
           <Text style={st.startFromChevron}>›</Text>
         </TouchableOpacity>
+
+        {/* Size */}
+        <SectionHead label="Drink Size" />
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={st.pillRow}>
+          {SIZES.map((sz) => (
+            <Pill
+              key={sz.id}
+              label={sz.label}
+              emoji={sz.oz}
+              selected={selectedSize.id === sz.id}
+              onPress={() => setSelectedSize(sz)}
+            />
+          ))}
+        </ScrollView>
+        <View style={st.sizeNote}>
+          <Text style={st.sizeNoteText}>
+            🍬 Default {selectedSize.hotPumps} syrup pump{selectedSize.hotPumps !== 1 ? 's' : ''} for this size = {selectedSize.hotPumps * 5}g added sugar from regular syrup
+          </Text>
+        </View>
 
         {/* Base */}
         <SectionHead label="Base" />
@@ -368,7 +388,7 @@ const st = StyleSheet.create({
     borderRadius: 10, paddingHorizontal: 14, paddingVertical: 10, marginBottom: 12,
   },
   sourceBannerText: { fontSize: 13, color: colors.muted },
-  sourceBannerName: { color: colors.cream, fontWeight: '600' },
+  sourceBannerName: { color: colors.text, fontWeight: '600' },
   sourceClear: { fontSize: 13, color: colors.green, fontWeight: '600' },
 
   // Start from drink button
@@ -378,7 +398,7 @@ const st = StyleSheet.create({
     borderRadius: 14, padding: 14, marginBottom: 8,
   },
   startFromIcon: { fontSize: 20, marginRight: 10 },
-  startFromText: { flex: 1, fontSize: 15, fontWeight: '600', color: colors.greenLight },
+  startFromText: { flex: 1, fontSize: 15, fontWeight: '600', color: colors.green },
   startFromChevron: { fontSize: 20, color: colors.muted },
 
   // Section heads
@@ -413,8 +433,16 @@ const st = StyleSheet.create({
     borderWidth: 1, borderColor: colors.border, alignItems: 'center', justifyContent: 'center',
   },
   stepBtnDisabled: { opacity: 0.3 },
-  stepIcon: { fontSize: 18, color: colors.cream, lineHeight: 22 },
-  stepVal: { fontSize: 16, fontWeight: '700', color: colors.cream, minWidth: 28, textAlign: 'center' },
+  stepIcon: { fontSize: 18, color: colors.text, lineHeight: 22 },
+  stepVal: { fontSize: 16, fontWeight: '700', color: colors.text, minWidth: 28, textAlign: 'center' },
+
+  // Size note
+  sizeNote: {
+    backgroundColor: 'rgba(255,180,0,0.07)', borderWidth: 1,
+    borderColor: 'rgba(255,180,0,0.2)', borderRadius: 10,
+    paddingHorizontal: 12, paddingVertical: 8, marginTop: 8,
+  },
+  sizeNoteText: { fontSize: 12, color: '#ffc94d' },
 
   // Milk note
   milkNote: {
@@ -436,11 +464,11 @@ const st = StyleSheet.create({
   syrupRowSelected: { backgroundColor: 'rgba(0,168,98,0.07)' },
   syrupRowSF: {},
   syrupEmoji: { fontSize: 18, marginRight: 12, width: 24, textAlign: 'center' },
-  syrupLabel: { fontSize: 14, fontWeight: '500', color: colors.cream, marginBottom: 2 },
-  syrupLabelSelected: { color: colors.greenLight },
+  syrupLabel: { fontSize: 14, fontWeight: '500', color: colors.text, marginBottom: 2 },
+  syrupLabelSelected: { color: colors.green },
   syrupNote: { fontSize: 11, color: colors.muted },
   sfBadge: {
-    fontSize: 10, fontWeight: '800', color: colors.greenLight,
+    fontSize: 10, fontWeight: '800', color: colors.green,
     backgroundColor: 'rgba(0,201,117,0.15)', borderWidth: 1,
     borderColor: 'rgba(0,201,117,0.3)', borderRadius: 6,
     paddingHorizontal: 5, paddingVertical: 1, marginRight: 8,
@@ -475,7 +503,7 @@ const st = StyleSheet.create({
     paddingHorizontal: 20, paddingVertical: 16,
     borderBottomWidth: 1, borderBottomColor: colors.border,
   },
-  modalTitle: { fontSize: 18, fontWeight: '700', color: colors.cream },
+  modalTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
   modalClose: { fontSize: 16, color: colors.green, fontWeight: '600' },
   drinkPickRow: {
     flexDirection: 'row', alignItems: 'center',
@@ -483,6 +511,6 @@ const st = StyleSheet.create({
     borderRadius: 14, padding: 14, marginBottom: 8,
   },
   drinkPickEmoji: { fontSize: 26, marginRight: 12, width: 36, textAlign: 'center' },
-  drinkPickName: { fontSize: 15, fontWeight: '600', color: colors.cream, marginBottom: 3 },
+  drinkPickName: { fontSize: 15, fontWeight: '600', color: colors.text, marginBottom: 3 },
   drinkPickDesc: { fontSize: 12, color: colors.muted },
 });

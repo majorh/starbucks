@@ -49,7 +49,7 @@ export default function DetailScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.bg} />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
       {/* Nav bar */}
       <View style={styles.nav}>
@@ -131,7 +131,7 @@ export default function DetailScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: colors.bg },
+  safe: { flex: 1, backgroundColor: colors.card },
   nav: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -157,10 +157,10 @@ const styles = StyleSheet.create({
   },
   heroEmoji: { fontSize: 72, marginBottom: 16 },
   heroName: {
-    fontSize: 28, fontWeight: '700', color: colors.cream,
+    fontSize: 28, fontWeight: '700', color: colors.text,
     textAlign: 'center', lineHeight: 34, marginBottom: 12, letterSpacing: -0.3,
   },
-  heroNameMod: { color: colors.greenLight },
+  heroNameMod: { color: colors.green },
   heroTags: {
     flexDirection: 'row', flexWrap: 'wrap',
     justifyContent: 'center', marginBottom: 10,
@@ -175,9 +175,9 @@ const styles = StyleSheet.create({
     borderRadius: 14, padding: 14, marginBottom: 24,
   },
   milkBoxRow: { flexDirection: 'row', alignItems: 'flex-start' },
-  milkBoxText: { flex: 1, fontSize: 15, color: colors.cream, lineHeight: 22 },
-  milkBoxBold: { color: colors.greenLight, fontWeight: '700' },
-  milkBoxLink: { fontSize: 13, color: colors.greenLight, fontWeight: '700', marginLeft: 8, marginTop: 2 },
+  milkBoxText: { flex: 1, fontSize: 15, color: colors.text, lineHeight: 22 },
+  milkBoxBold: { color: colors.green, fontWeight: '700' },
+  milkBoxLink: { fontSize: 13, color: colors.green, fontWeight: '700', marginLeft: 8, marginTop: 2 },
   sectionLabel: {
     fontSize: 11, fontWeight: '700', letterSpacing: 1.2,
     textTransform: 'uppercase', color: colors.green, marginBottom: 10,
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border,
     borderRadius: 14, padding: 16, marginBottom: 24,
   },
-  infoText: { fontSize: 16, color: colors.cream, lineHeight: 24 },
+  infoText: { fontSize: 16, color: colors.text, lineHeight: 24 },
   warnBox: {
     backgroundColor: 'rgba(255,180,0,0.06)',
     borderLeftWidth: 3, borderLeftColor: 'rgba(255,180,0,0.5)',
@@ -197,11 +197,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.green, borderRadius: 14,
     paddingVertical: 16, alignItems: 'center', marginBottom: 12,
   },
-  btnPrimaryText: { color: '#000', fontSize: 17, fontWeight: '700' },
+  btnPrimaryText: { color: '#fff', fontSize: 17, fontWeight: '700' },
   secondaryRow: { flexDirection: 'row' },
   btnSecondary: {
     flex: 1, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border,
     borderRadius: 14, paddingVertical: 14, alignItems: 'center',
   },
-  btnSecondaryText: { color: colors.cream, fontSize: 15, fontWeight: '500' },
+  btnSecondaryText: { color: colors.text, fontSize: 15, fontWeight: '500' },
 });

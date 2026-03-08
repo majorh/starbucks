@@ -122,7 +122,7 @@ function SugarBar({ sugarNum }) {
 export default function MilkGuideScreen({ navigation }) {
   return (
     <SafeAreaView style={mg.safe} edges={['top']}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.bg} />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
       <View style={mg.nav}>
         <TouchableOpacity style={mg.backBtn} onPress={() => navigation.goBack()}>
@@ -207,7 +207,7 @@ const mg = StyleSheet.create({
 
   hero: { alignItems: 'center', paddingVertical: 24 },
   heroEmoji: { fontSize: 52, marginBottom: 12 },
-  heroTitle: { fontSize: 26, fontWeight: '700', color: colors.cream, marginBottom: 8, letterSpacing: -0.3 },
+  heroTitle: { fontSize: 26, fontWeight: '700', color: colors.text, marginBottom: 8, letterSpacing: -0.3 },
   heroSub: { fontSize: 14, color: colors.muted, textAlign: 'center', lineHeight: 22, paddingHorizontal: 8 },
 
   tipBox: {
@@ -215,9 +215,9 @@ const mg = StyleSheet.create({
     borderColor: 'rgba(0,168,98,0.25)', borderRadius: 14,
     padding: 16, marginBottom: 24,
   },
-  tipTitle: { fontSize: 14, fontWeight: '700', color: colors.greenLight, marginBottom: 6 },
-  tipBody: { fontSize: 14, color: colors.cream, lineHeight: 21 },
-  tipBold: { fontWeight: '700', color: colors.greenLight },
+  tipTitle: { fontSize: 14, fontWeight: '700', color: colors.green, marginBottom: 6 },
+  tipBody: { fontSize: 14, color: colors.text, lineHeight: 21 },
+  tipBold: { fontWeight: '700', color: colors.green },
 
   listHeader: {
     fontSize: 11, fontWeight: '700', letterSpacing: 1.2,
@@ -236,7 +236,7 @@ const mg = StyleSheet.create({
   },
   rankText: { fontSize: 11, fontWeight: '700', color: colors.muted },
   milkEmoji: { fontSize: 24, marginRight: 10, width: 30, textAlign: 'center' },
-  milkName: { fontSize: 15, fontWeight: '600', color: colors.cream, marginBottom: 4 },
+  milkName: { fontSize: 15, fontWeight: '600', color: colors.text, marginBottom: 4 },
   sugarRow: { flexDirection: 'row', alignItems: 'center' },
   sugarAmt: { fontSize: 13, fontWeight: '700', marginRight: 8 },
   levelPill: { borderRadius: 8, paddingHorizontal: 7, paddingVertical: 2 },

@@ -38,7 +38,7 @@ function Row({ icon, text, onPress }) {
 export default function AboutScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.bg} />
+      <StatusBar barStyle="dark-content" backgroundColor={colors.bg} />
 
       {/* Nav */}
       <View style={styles.nav}>
@@ -87,20 +87,24 @@ export default function AboutScreen({ navigation }) {
 
         {/* How it works */}
         <Section title="How to Use This App">
-          <Row
-            icon="☕"
-            text='Browse drinks by category using the tabs below, or search by name. Tap any drink for full ordering instructions.'
-          />
+          <Row icon="☕" text="Browse drinks by category using the tabs below, or search by name. Tap any drink for full ordering instructions." />
           <View style={styles.divider} />
-          <Row
-            icon="❤️"
-            text="Save your go-to orders by tapping the heart icon on any drink's detail page. Your favorites are saved to your device."
-          />
+          <Row icon="❤️" text="Save your go-to orders by tapping the heart icon on any drink's detail page. Your favorites are saved to your device." />
           <View style={styles.divider} />
-          <Row
-            icon="📤"
-            text="Use the Share button on any drink to send the order to a friend or open the Starbucks app directly."
-          />
+          <Row icon="📤" text="Use the Share button on any drink to send the order to a friend or open the Starbucks app directly." />
+          <View style={styles.divider} />
+          <Row icon="🧮" text="Use the Sugar Calculator tab to build any custom drink and see its estimated sugar content in real time." />
+        </Section>
+
+        {/* Guides */}
+        <Section title="Guides & Resources">
+          <Row icon="🚨" text="Hidden Sugar Traps — drinks that contain more sugar than you'd expect →" onPress={() => navigation.navigate('HiddenSugar')} />
+          <View style={styles.divider} />
+          <Row icon="🍽️" text="Food Pairings — best low-sugar foods to order alongside your drink →" onPress={() => navigation.navigate('Food')} />
+          <View style={styles.divider} />
+          <Row icon="📖" text="Ordering Glossary — what every Starbucks term actually means →" onPress={() => navigation.navigate('Glossary')} />
+          <View style={styles.divider} />
+          <Row icon="🥛" text="Milk Sugar Guide — all milk options ranked by sugar content →" onPress={() => navigation.navigate('MilkGuide')} />
         </Section>
 
         {/* Milk note */}
@@ -161,7 +165,7 @@ const styles = StyleSheet.create({
   heroTitle: {
     fontWeight: '700',
     fontSize: 26,
-    color: colors.cream,
+    color: colors.text,
     textAlign: 'center',
     marginTop: 16,
     letterSpacing: -0.3,
@@ -198,8 +202,8 @@ const styles = StyleSheet.create({
     padding: 14,
   },
   rowIcon: { fontSize: 16, marginRight: 12, marginTop: 1, width: 22, textAlign: 'center' },
-  rowText: { flex: 1, fontSize: 14, color: colors.cream, lineHeight: 21 },
-  rowTextLink: { color: colors.greenLight },
+  rowText: { flex: 1, fontSize: 14, color: colors.text, lineHeight: 21 },
+  rowTextLink: { color: colors.green },
 
   divider: {
     height: 1,

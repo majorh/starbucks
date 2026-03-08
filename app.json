@@ -2,30 +2,52 @@
   "expo": {
     "name": "Zero Sugar Starbucks",
     "slug": "zero-sugar-starbucks",
-    "version": "1.0.0",
-    "platforms": ["ios", "android"],
+    "version": "2.0.0",
     "sdkVersion": "54.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
-    "backgroundColor": "#0d1a12",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#f7f7f5",
     "newArchEnabled": true,
     "splash": {
-      "backgroundColor": "#0d1a12"
+      "backgroundColor": "#00704a"
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.yourname.zerosugarbucks",
+      "bundleIdentifier": "com.majorhighfield.zerosugarbucks",
       "infoPlist": {
-        "LSApplicationQueriesSchemes": ["starbucks"]
+        "LSApplicationQueriesSchemes": ["starbucks"],
+        "NSLocationWhenInUseUsageDescription": "Zero Sugar Starbucks uses your location to notify you with your favourite zero-sugar order when you arrive at a Starbucks.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Zero Sugar Starbucks uses your location to notify you with your favourite zero-sugar order when you arrive at a Starbucks.",
+        "UIBackgroundModes": ["location", "fetch"]
       }
     },
     "android": {
-      "package": "com.yourname.zerosugarbucks",
+      "package": "com.majorhighfield.zerosugarbucks",
       "adaptiveIcon": {
-        "backgroundColor": "#0d1a12"
-      }
+        "backgroundColor": "#00704a"
+      },
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE"
+      ]
     },
     "assetBundlePatterns": ["**/*"],
-    "plugins": []
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Zero Sugar Starbucks uses your location to notify you when you arrive at a Starbucks."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#00704a"
+        }
+      ]
+    ]
   }
 }
